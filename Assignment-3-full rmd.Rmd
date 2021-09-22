@@ -312,9 +312,8 @@ pct_EV_centers <- n_EV_centers / n_EV
 
 pct_EV_centers
 ```
+
 ```{r}
-left_side  <- st_bbox(main)$xmin
-top_side <- st_bbox(main)$ymax
 
 ggplot() +
    geom_sf(data = nhoods, fill = "powderblue", color = NA) + 
@@ -352,6 +351,9 @@ This map shows an average distance between an Electric Vehicle station and Main 
 left_side  <- st_bbox(main)$xmin
 top_side <- st_bbox(main)$ymax
 
+nhoods <- nhoods %>%
+  mutate(num_EV = lengths(st_covers(nhoods, EV)))
+
 ggplot(nhoods) +
   geom_sf(color = NA, 
           aes(fill = num_EV)) +
@@ -369,3 +371,5 @@ theme_map() +
 ```
 
 This map shows the prevalence of EV charging stations broken down by neighborhood. As seen by the yellow coloring, one of Boston’s neighborhoods has a high concentration of EV charging stations while many portions of the city have very few charging stations if any at all. Several neighborhoods are in the middle range, each containing somewhere in the range of 4-10 EV charging stations.
+
+### Team distribution of points
